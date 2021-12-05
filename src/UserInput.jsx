@@ -15,17 +15,16 @@ const UserInput = () => {
   // MM = Math.floor(seconds / 60) % 60, // use modulo to get only the remainder minutes
   // HH = Math.floor(seconds / 60 / 60);
 
-  const [hour, setHour] = useState();
-  const [minute, setMinute] = useState();
-  const [milisec, setMilisec] = useState();
   return (
     <div>
       <p>user input timer</p>
-      <form className="inputStyling">
-        <input type="number" id="HH_i"/><input type="number" id="MM_i"/><input type="number" id="SS_i"/>
+      <form id="inputStyling">
+        <input type="number" id="HH_i" value={input} onInput={setHour(hour = e.target.value)}/>
+        <input type="number" id="MM_i" value={input} onInput={setMin(min = e.target.value)}/>
+        <input type="number" id="SS_i" value={input} onInput={setSec(sec = e.target.value)}/>
       </form>
       <button type="button" id="saveButton" onClick={() => {
-        
+        // post request to send the data to the backend here
       }}>Save</button>
     </div>
   );
