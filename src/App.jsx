@@ -29,7 +29,7 @@ const App = () => {
 
   return (
     <div className="App">
-      <h1> pomodoro timer </h1>
+      <h1> Pomodoro timer </h1>
       <Timer/>
     </div>
   )
