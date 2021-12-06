@@ -1,0 +1,48 @@
+* {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif
+}
+
+#container {
+    /* background: #89CFF0; */
+    /* background-image: radial-gradient(blanchedalmond 5%, white 60%); */
+    text-align: center;
+  }
+
+.inputStyling {
+    /* font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif */
+}
+
+#timer {
+    font-size: 88px;
+    text-align: center;
+    background: transparent;
+}
+
+#notation {
+    font-size: 88px;
+    display: flex;
+    justify-content: center;
+    align-items: Start;
+}
+
+
+#HH, #MM, #SS { 
+    font-size: 88px;
+    /* padding: 0px 0px 0px 0px; */
+    border: 0px;
+    width: 88px;
+    margin: -1px;
+    text-align: center;
+    background: transparent;
+}
+
+/* Chrome, Safari, Edge, Opera */
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: -1px;
+}
+/* Firefox */
+input[type=number] {
+    -moz-appearance: textfield;
+}
