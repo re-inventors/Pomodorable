@@ -13,18 +13,21 @@ app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
 
 app.post(
-  '/user',
-  userController.createUser, cookieController.setSSIDCookie, sessionController.startSession,
+  '/login',
+  userController.createUser,
+  sessionController.startSession,
+  userController.getTimers,
+  cookieController.setSSIDCookie,
   (req, res) => {
-    res.sendStatus(200);
+    res.status(200).json(res.locals.timers);
   }
 );
 
-app.post('/timer', userController.createTimer, (req, res) => {
-  res.sendStatus(200);
+app.post('/timer', sessionController.isLoggedIn, userController.createTimer, userController.getTimers, (req, res) => {
+  res.status(200).json(res.locals.timers);
 });
 
-app.get('/find', userController.addTimerToUser, (req, res) => {
+app.get('/find', (req, res) => {
   res.sendStatus(200);
 });
 
