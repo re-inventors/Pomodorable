@@ -25,12 +25,10 @@ import Timer from './Timer.jsx';
 
 const App = () => {
 
-  const [count, setCount] = useState(0)
-
   return (
     <div className="App">
-      <h1> Pomodoro timer </h1>
-      <Timer/>
+        <h1 style={{textAlign: "center"}}> Pomodoro Timer </h1>
+      <Timer />
     </div>
   )
 }

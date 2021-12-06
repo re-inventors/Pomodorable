@@ -5,13 +5,13 @@ import UserInput from './UserInput.jsx';
 import './styles/styles.css';
 
 const Timer = () => {
-  // state (dont mind me, just trying)
-  const [user, setUser] = useState('');
+  // states
   const [hour, setHour] = useState(0);
   const [min, setMin] = useState(25);
   const [sec, setSec] = useState(0);
-  const [timerLabel, setTimerLabel] = useState('Exotic Timer');
-  console.log(timerLabel);
+  const [timerLabel, setTimerLabel] = useState("let's go!");
+  const [user, setUser] = useState('');
+  const [timerList, setTimerList] = useState([]);
 
   const hourToMS = 60 * 60 * 1000;
   const minToMS = 60 * 1000;
@@ -22,10 +22,12 @@ const Timer = () => {
   const duration = hour * hourToMS + min * minToMS + sec * secToMS;
 
   const { countdown, start, reset, pause, isRunning } = useCountdownTimer({
+    // timer sets the countdown
     timer: duration, // in ms
   });
 
   console.log('duration ', countdown);
+
 
   // let seconds = input * 1000 ;
   let seconds = countdown / 1000;
@@ -57,94 +59,105 @@ const Timer = () => {
     return `${HH}:${MM}:${SS}`;
   }
 
-  // timer display
-  // reset / start buttons (later on maybe will remove the reset button)
-  // user input timer (later on we might merge with the timer display)
-  // save button: send data to the backend
+  const timerInput = () => {
+    return (
+      <form>
+        <div id="notation">
+          <input id="HH" name="HH_val" type="number" minLength="2" maxLength="2" value={hour} onChange={(e) => {setHour(e.target.value)}}/>:
+          <input id="MM" name="MM_val" type="number" minLength="2" maxLength={2} value={min} onChange={(e) => {setMin(e.target.value)}}/>:
+          <input id="SS" name="SS_val" type="number" minLength="2" value={sec} onChange={(e) => {setSec(e.target.value)}} />
+        </div>
+      </form>
+    )
+  };
+  
+  const timerDisplay = () => {
+    return (<div id="notation">{humanReadable(seconds)}</div>)
+  }
+
+// reset / start buttons (later on maybe will remove the reset button)
+// user input timer (later on we might merge with the timer display)
+// save button: send data to the backend
+
+  //preset timers list
+  const list = [];
+  for (let i = 0; i < timerList.length; i++){
+    list.push()
+  }
 
   return (
-    <React.Fragment>
-      <div>{humanReadable(seconds)}</div>
-      <button onClick={reset}>Reset</button>
-      {isRunning ? (
-        <button onClick={pause}>Pause</button>
-      ) : (
-        <button onClick={start}>Start</button>
-      )}
-
-      <form className="inputStyling">
-        <label htmlFor="user">User: </label>
-        <input
-          type="text"
-          id="user"
-          placeholder="User Name"
-          onChange={(e) => {
-            setUser(e.target.value);
-          }}
-        />
-        <label htmlFor="timerLabel">Timer Label</label>
-        <input
-          type="text"
-          id="timerLabel"
-          placeHolder="Custom Timer Name"
-          value={timerLabel}
-          onChange={(e) => {
-            setTimerLabel(e.target.value);
-            console.log('label');
-          }}
-        />
-        <label htmlFor="HH_i">Hour:</label>
-        <input
-          type="number"
-          id="HH_i"
-          placeHolder="HH"
-          onChange={(e) => {
-            setHour(e.target.value);
-            console.log('HH');
-          }}
-        />
-        <label htmlFor="MM_i">Minute:</label>
-        <input
-          type="number"
-          id="MM_i"
-          placeHolder="MM"
-          maxLength={3}
-          onChange={(e) => {
-            setMin(e.target.value);
-            console.log('MM');
-          }}
-        />
-        <label htmlFor="SS_i">Second:</label>
-        <input
-          type="number"
-          id="SS_i"
-          placeHolder="SS"
-          onChange={(e) => {
-            setSec(e.target.value);
-            console.log('SS');
-          }}
-        />
-      </form>
-      <button
-        type="button"
-        id="saveButton"
-        onClick={() => {
+    <div id="container">
+      {/* login */}
+      <form>
+        {/* if user is not logged in, login button appears. */}
+        {/* if user is logged in, logout button appears. */}
+        <input type="text" id='user' placeholder="Username" onChange={(e) => {setUser(e.target.value)}}/>
+        <button type="button" id="loginButton" onClick={() => {
           // post request to send the data to the backend here
-          fetch('/timer', {
+          fetch ('/login', {
             method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({
-              label: timerLabel,
-              userName: user,
-              dur: duration,
-            }),
-          }).then((res) => res.json());
-          // .then((data) => {});
-        }}
-      >
-        Save
-      </button>
-    </React.Fragment>
+            headers: {'Content-Type': 'application/json'},
+            body: JSON.stringify({userName: user})
+          }).then(res => res.json())
+            .then(data => {
+
+          });
+        }}>
+          Login
+        </button>
+        <br/>
+        <br/>
+        {/* input fields */}
+        <input type="text" id='timer' placeholder="Custom Timer Name" value={timerLabel} onChange={(e) => { setTimerLabel(e.target.value) }} />
+      </form>
+      {/* countdown timer for user input */}
+      <form>
+        <div id="notation">
+          <input id="HH" name="HH_val" type="number" minLength="2" maxLength="2" value={hour} onChange={(e) => {setHour(e.target.value)}}/>:
+          <input id="MM" name="MM_val" type="number" minLength="2" maxLength={2} value={min} onChange={(e) => {setMin(e.target.value)}}/>:
+          <input id="SS" name="SS_val" type="number" minLength="2" value={sec} onChange={(e) => {setSec(e.target.value)}} />
+        </div>
+      </form>
+      {/* countdown timer for display  */}
+      <div id="notation">{humanReadable(seconds)}</div>
+        {/* {!isRunning ? timerInput() : timerDisplay()} */}
+        <br/>
+        <br />
+        <button onClick={reset}>Reset</button>
+        {isRunning ? (
+          <button onClick={pause}>Pause</button>
+        ) : (
+          <button onClick={start}>Start</button>
+      )}
+      { () => {
+        if (isRunning) { 
+          return (<button onClick={pause}>Pause</button>);
+        } else {
+          return (<button onClick={start}>Start</button>);
+        }
+      }
+      }
+      <form>
+        <label htmlFor="HH_i"> Hour: </label>
+        <input type="number" id="HH_i" placeholder="HH" onChange={(e) => {setHour(e.target.value)}}/>
+        <label htmlFor="MM_i"> Minute: </label>
+        <input type="number" id="MM_i" placeholder="MM" maxLength={3} onChange={(e) => {setMin(e.target.value)}}/>
+        <label htmlFor="SS_i"> Second: </label>
+        <input type="number" id="SS_i" placeholder="SS" onChange={(e) => {setSec(e.target.value)}}/>
+      </form>
+
+      <button type="button" id="saveButton" onClick={() => {
+        // post request to send the data to the backend here
+        fetch ('/timer', {
+          method: 'POST',
+          headers: {'Content-Type': 'application/json'},
+          body: JSON.stringify({label: timerLabel, dur: duration})
+        }).then(res => res.json())
+          .then(data => {
+            setTimerList(data)
+          });
+      }}>Save</button>
+    </div>
   );
 };
 
