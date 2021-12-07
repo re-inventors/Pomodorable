@@ -20,6 +20,7 @@ userController.createUser = (req, res, next) => {
           });
       } else {
         res.locals.ssid = user._doc._id;
+        res.locals.alreadyCreated = true;
         return next();
       }
     })
@@ -56,7 +57,7 @@ userController.createTimer = (req, res, next) => {
 };
 
 userController.getTimers = (req, res, next) => {
-  User.findOne({ _id: req.cookies.ssid })
+  User.findOne({ _id: res.locals.ssid })
     .then((user) => {
       res.locals.timers = user._doc.timers;
       return next();

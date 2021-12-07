@@ -27,7 +27,7 @@ const App = () => {
 
   return (
     <div className="App">
-        <h1 style={{textAlign: "center"}}> Pomodoro Timer </h1>
+        <h1 style={{textAlign: "center"}}> Pomodorable </h1>
       <Timer />
     </div>
   )
