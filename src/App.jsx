@@ -23,6 +23,10 @@ import Timer from './Timer.jsx';
 // (3) if it doesn't exist, then we'll save this current timer to the back-end database [name, time]
   // (a) create a fetch request to create a preset timer on the side?
 
+  // pop up when timer is up
+  // audio when timer is up?
+  // 
+
 const App = () => {
 
   const [count, setCount] = useState(0)
@@ -30,6 +34,7 @@ const App = () => {
   return (
     <div className="App">
       <h1> pomodoro timer </h1>
+      
       <Timer/>
     </div>
   )
