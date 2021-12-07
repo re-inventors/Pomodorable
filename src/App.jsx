@@ -25,17 +25,13 @@ import Timer from './Timer.jsx';
 
   // pop up when timer is up
   // audio when timer is up?
-  // 
 
 const App = () => {
 
-  const [count, setCount] = useState(0)
-
   return (
     <div className="App">
-      <h1> pomodoro timer </h1>
-      
-      <Timer/>
+        <h1 style={{textAlign: "center"}}> Pomodorable </h1>
+      <Timer />
     </div>
   )
 }
